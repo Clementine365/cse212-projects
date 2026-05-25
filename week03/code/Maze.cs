@@ -32,7 +32,7 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        // condition for moving to the left
          if (!_mazeMap[(_currX, _currY)][0])
         throw new InvalidOperationException("Can't go that way!");
 
@@ -46,7 +46,7 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        // condition fro moving to the right
          if (!_mazeMap[(_currX, _currY)][1])
         throw new InvalidOperationException("Can't go that way!");
 
@@ -59,7 +59,7 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        // condition for moving up
          if (!_mazeMap[(_currX, _currY)][2])
         throw new InvalidOperationException("Can't go that way!");
 
@@ -72,7 +72,7 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        // the if that helps the moving down
          if (!_mazeMap[(_currX, _currY)][3])
         throw new InvalidOperationException("Can't go that way!");
 
