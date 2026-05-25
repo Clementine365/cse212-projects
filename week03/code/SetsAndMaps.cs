@@ -21,9 +21,35 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        // TODO Problem 1 - find pairs with O(n) using a HashSet.
+
+         var wordSet = new HashSet<string>(words);
+    var pairs = new List<string>();
+    var used = new HashSet<string>();
+
+    foreach (var word in words)
+    {
+        // here it has to skip words like "aa"
+        if (word[0] == word[1])
+            continue;
+
+        var reverse = $"{word[1]}{word[0]}";
+
+        if (wordSet.Contains(reverse) &&
+            !used.Contains(word) &&
+            !used.Contains(reverse))
+        {
+            pairs.Add($"{word} & {reverse}");
+            used.Add(word);
+            used.Add(reverse);
+        }
     }
+
+    return pairs.ToArray();
+}
+        
+    
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
@@ -42,7 +68,15 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            // TODO Problem 2 - help summarize degrees
+
+            string degree = fields[3].Trim();
+
+        if (degrees.ContainsKey(degree))
+            degrees[degree]++;
+        else
+            degrees[degree] = 1;
+    
         }
 
         return degrees;
@@ -66,9 +100,37 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
+        // this uses the Dictionary to determine if two word are anagram
+        word1 = word1.Replace(" ", "").ToUpper();
+    word2 = word2.Replace(" ", "").ToUpper();
+
+    if (word1.Length != word2.Length)
         return false;
+
+    var letters = new Dictionary<char, int>();
+
+    foreach (char c in word1)
+    {
+        if (letters.ContainsKey(c))
+            letters[c]++;
+        else
+            letters[c] = 1;
     }
+
+    foreach (char c in word2)
+    {
+        if (!letters.ContainsKey(c))
+            return false;
+
+        letters[c]--;
+
+        if (letters[c] < 0)
+            return false;
+    }
+                
+     return true;
+}
+    
 
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
@@ -96,11 +158,22 @@ public static class SetsAndMaps
 
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
 
-        // TODO Problem 5:
-        // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
-        // on those classes so that the call to Deserialize above works properly.
-        // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
-        // 3. Return an array of these string descriptions.
-        return [];
+       
+         
+        //  down here i created a string for each place a earthquake has happened today and its magitude.i did use summary loop inside the EarthquakeDailySummary().
+    
+       
+        var summaries = new List<string>();
+
+    foreach (var feature in featureCollection.Features)
+    {
+        string place = feature.Properties.Place;
+        double? mag = feature.Properties.Mag;
+
+        summaries.Add($"{place} - Mag {mag}");
     }
+
+    return summaries.ToArray();
+}
+        
 }
