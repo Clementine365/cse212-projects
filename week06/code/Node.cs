@@ -11,7 +11,7 @@ public class Node
 
     public void Insert(int value)
     {
-        // TODO Start Problem 1
+        //  Start Problem 1
 
  // this will help to ignore duplicates
         if (value == Data)
@@ -36,7 +36,7 @@ public class Node
     }
 
         
-        // TODO Start Problem 2
+        //  Start Problem 2
          public bool Contains(int value)
     {
         if (value == Data)
@@ -61,7 +61,7 @@ public class Node
 
     public int GetHeight()
     {
-        // TODO Start Problem 4
+        // Start Problem 4
         int leftHeight = 0;
         int rightHeight = 0;
 
